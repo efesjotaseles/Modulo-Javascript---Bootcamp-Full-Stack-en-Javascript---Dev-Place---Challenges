@@ -1,4 +1,4 @@
-export {Motor}
+export {Motor} from 'motor.js';
 
 class Motor{
     
