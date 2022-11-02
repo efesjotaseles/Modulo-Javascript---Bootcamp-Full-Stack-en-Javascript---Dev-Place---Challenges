@@ -1,85 +1,79 @@
-const botonera = document.getElementById("botonera");
-const btnStart = document.getElementById("btnStart");
-const palabraEscondida = document.getElementById("palabraEscondida");
-const intentosHTML = document.getElementById("intentosFallidos");
-const palabras = [
-  "PALABRA",
-  "ESTACION",
-  "ZAPATILLA",
-  "RENACUAJO",
-  "LIMONERO",
-  "HELICOIDAL",
-  "GUIJARROS",
-  "PORTAVOZ",
-  "PROCRASTINAR"
-];
-let intentosFallidos;
-let palabraElegida;
-var palabraConGuiones = [];
+const inputArray = document.querySelectorAll(".arrayNumeros");
 
-btnStart.addEventListener("click", comenzarJuego);
+//inputArray[0].addEventListener('change', holaMundo);
+//inputArray.map((element)=>{element.addEventListener('change', holaMundo);});
+//inputArray.forEach((element)=>{element.addEventListener('change', holaMundo);});
 
-function comenzarJuego() {
-  intentosFallidos = 0;
-  intentosHTML.innerHTML = intentosFallidos;
-  palabraElegida = elegirPalabra();
-  generarPalabraConGuiones(palabraElegida);
-  actualizarPalabraHTML(palabraConGuiones);
-  console.log(palabraElegida);
+
+function holaMundo(){
+    console.log("hola mundo");
 }
 
-botonera.addEventListener("click", (e) => {
-  const letra = e.target.getAttribute("letra");
-  if (letra) {
-    if (acerto(letra)) {
-      alert("éxito!");
-      comprobarLetra(letra);
-      actualizarPalabraHTML(palabraConGuiones);
-    } else {
-      intentosFallidos++;
-      intentosHTML.innerHTML = intentosFallidos;
-      alert("Intento fallido!");
-      //dibujar parte del cuerpo???
+
+
+function numMayor(arrayNums) {
+  let max = arrayNums[0];
+  arrayNums.forEach((element) => {
+    if (element > max) {
+      max = element;
     }
-
-    //console.log(letra);
-  }
-});
-//document.getElementById('mydata').innerText = 'Result: ' + no;
-
-function elegirPalabra() {
-  return palabras[Math.floor(Math.random() * palabras.length)];
+  });
+  return max;
 }
 
-function generarPalabraConGuiones(palabraOriginal) {
-  for (let i = 0; i < palabraElegida.length; i++) {
-    palabraConGuiones[i] = "_";
-  }
-  //palabraConGuiones = palabraOriginal.replace(/./g, "_ ");
-}
-
-function actualizarPalabraHTML(palabraAMostrar) {
-  palabraEscondida.innerHTML = palabraAMostrar.join(" "); //devuelve un array a string
-}
-
-function comprobarLetra(letra) {
-  //console.log(letra);
-  for (let i = 0; i < palabraElegida.length; i++) {
-    if (letra === palabraElegida[i]) {
-      palabraConGuiones[i] = letra;
-      //palabraConGuiones = "algo";
-      //alert(palabraConGuiones);
-      //palabraConGuiones.slice(i, 1);
-      //palabraConGuiones.splice(i, 0, letra);
+function numMenor(arrayNums) {
+  let min = arrayNums[0];
+  arrayNums.forEach((element) => {
+    if (element < min) {
+      max = element;
     }
-  }
-  console.log(palabraConGuiones);
+  });
+  return min;
 }
 
-function acerto(letra) {
-  let rta = false;
-  if (palabraElegida.indexOf(letra) !== -1) {
-    rta = true;
+function filterPares(arrayNums) {
+  let pares = [];
+  function checkParity(num) {
+    return num % 2 == 0;
   }
-  return rta;
+  pares = arrayNums.filter(checkParity);
+
+  return pares;
+}
+
+function filterImpares(arrayNums) {
+  let impares = [];
+  function checkOdds(num) {
+    return num%2 != 0;
+  }
+  impares = arrayNums.filter(checkOdds);
+  return impares;
+}
+
+function sortAsc(arrayNums){
+    return arrayNums.sort((a,b)=>{
+        if(a<b){
+            return -1;
+        }
+        if(a>b){
+            return 1;
+        }
+        return 0;
+    })
+}
+
+function sortDesc(arrayNums){
+    return arrayNums.sort((a,b)=>{
+        if(a>b){
+            return -1;
+        }
+        if(a<b){
+            return 1;
+        }
+        return 0;
+    })
+}
+
+function arrayNumeros(){
+    return inputArray;
 }
